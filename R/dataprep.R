@@ -929,12 +929,10 @@ vegpfromhab <- function(habitats, hgts = NA, pai = NA, lat = NA, long = NA, tme 
     hgt[sel]<-vegi$hgt
   }
   clump<-pai*0
-  pai<-.rast(pai,habitats)
   leaft<-0.5*leafr
   if (clump0 == F) {
-    for (i in 1:dim(pai)[3]) clump[,,i]<-clumpestimate(hgt, leafd, .is(pai)[,,i])
+    for (i in 1:dim(pai)[3]) clump[[i]]<-.rast(clumpestimate(hgt, leafd, .is(pai)[,,i]), habitats)
   }
-  clump <- .rast(clump,habitats)
   # Convert to rasters
   if (class(hgts)=="logical") {
     hgt<-.rast(hgt,habitats)
